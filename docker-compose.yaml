@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./build/app/Dockerfile.dev
+    env_file:
+      - .env
+    ports:
+      - 3003:3003
+    volumes:
+      - ./src:/home/node/app/src:rw
+    container_name: one-api.testing
+    networks:
+      - sabay_docker
+
+  worker-testing:
+    build:
+      context: .
+      dockerfile: ./build/app/Dockerfile.dev
+    command: 'worker:start'
+    env_file:
+      - .env
+    volumes:
+      - ./src:/home/node/app/src:rw
+    networks:
+      - sabay_docker
+
+networks:
+  sabay_docker:
+    external: true

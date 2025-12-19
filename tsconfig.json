@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "rootDirs": ["src"],
+    "outDir": "dist",
+    "lib": ["dom", "es6"],
+    "target": "ES2019",
+    "module": "commonjs",
+    // "moduleResolution": "node",
+    "esModuleInterop": true,
+    "types": ["jest", "node"],
+    "sourceMap": false,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "useDefineForClassFields": true,
+  },
+  "include": ["./src/**/*.ts"],
+  "exclude": ["node_modules"],
+}

@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  app:
+    image: docker-registry.sabay.com/sabay-one/backend/app.api.one.sabay.com /nodejs/app:${TAG}
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=development
+      - COMPOSE_PROJECT_NAME=app.api.one.sabay.com
+      - TAG=master
+      - MONGO_DB_URI=mongo01.master.sabay.com:27017,mongo02.master.sabay.com:27017,mongo03.master.sabay.com:27017/app_sabay_one?replicaSet=repl_01&retryWrites=true&w=majority
+      - MONGO_DB_USERNAME=app_sabay_one_user
+      - MONGO_DB_PASSWORD=6f8NC52ygoS7
+      - JAEGER_HOST=jaeger
+      - JAEGER_SPAN_LOGGING=true
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PASSWORD=guest
+      - RABBITMQ_USER=guest
+      - RABBITMQ_VHOST=/
+      - SLACK_API_URL=https://slack.com/api/chat.postMessage
+      - SLACK_APP_TOKEN=xoxb-39222010342-3583612224324-Yq9D5aQQn0Qu13nnBLmhFh49
+      - SLACK_CHANNEL=C05LT76FHNX
+      - ROW_LIMIT=20
+      - MAX_LIMIT=100
+      - RETRY_INTERVAL=30000
+      - ENABLE_INTROSPECTION=true
+      - DEBUG_MODE=0
+      - MAXIMUM_OBJECT_SIZE=1
+      - CACHED_EXPIRE=7200
+      - MOVIE_API_URL=https://reality-stone.master.sabay.com/graphql
+      - BOOK_API_URL=https://time-stone.master.sabay.com/graphql
+      - PODCAST_API_URL=https://power-stone.master.sabay.com/graphql
+      - PAYMENT_ADDRESS_DOMAIN=one-resolver.master.sabay.com
+      - APPLE_CA_CERTIFICATE=AppleRootCA-G3.cer
+      - APPLE_BUNDLE_ID=kh.com.sabay.sabayone.dev
+      - APPLE_APP_ID=6452802434
+      - APPLE_ENVIRONMENT=Sandbox
+      - APPLE_ENABLE_ONLINE_CHECK=false
+      - APPLE_TEST=false

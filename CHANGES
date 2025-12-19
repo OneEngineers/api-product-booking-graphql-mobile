@@ -1,0 +1,76 @@
+Version 1.1.1
+
+- Add condition to recalculate price when switch payment from bank to sc
+
+Version 1.1.0
+
+- validate the user if the user have referrerId throw error
+- validate user_id and referrer_id from being the same
+- Implement new mutation to update order status
+- Update mutation updateUserPurchaseStatus to have data on response
+- Update userPlaceOrder Mutation to support direct purchase with PayWay
+- Implement new mutation to verify online payment
+- Implement new query to get single transaction log
+- Update paymentAdress to null when place order with online payment
+
+Version 1.0.9
+
+- Implement new mutation to record user referrer
+- Add token to header for request content from strapi api
+- Implement new query to list user referrer
+- Rename database field
+- Update list the userReferrer
+
+Version 1.0.8
+
+- Improve validate purchase content
+
+Version 1.0.7
+
+- Fix tax amount and round to integer
+
+Version 1.0.6
+
+- Fix Apple pay when switch to SC pay
+- Add new field apple_test to purchase entity
+
+Version 1.0.5
+
+- Update notify apple payment to support apple test
+
+Version 1.0.4
+
+- Add notify apple payment action
+
+Version 1.0.3
+
+- Update user place order to apple payment
+- Add app_account_token field to purchase entity
+
+Version 1.0.2
+
+- Update user place order to support discount
+
+Version 1.0.1
+
+- Improved http util merge headers
+
+Version 1.0.0
+
+- Initial project using GraphQL and typescript
+- Implement query list user history logs
+- Implement log user history
+- Implement mutation log user tracking
+- Implement mutation update user preference
+- Implement query get user preference
+- Implement add field resolver to list user history
+- Implement user place order
+- Implement update purchase status consumer
+- Implement validate purchase content
+- Implement get user order by id
+- Implement list user orders
+- Update user place order:
+  - The user can place an order for one item per order
+  - Will respond payment address if an order item exists on purchase with the status open
+  - Added filter by status on list orders
+

@@ -1,0 +1,132 @@
+const ENVIRONMENT = {
+  TEST: 'test',
+  CI_TEST: 'ci_test',
+};
+
+const QUEUE_TYPE = {
+  FANOUT: 'fanout',
+};
+
+const MESSAGE_KEY = {
+  SABAY_ONE_USER_PURCHASE_UPDATE: 'one.testing.purchase.update',
+  USER_BOOKING_UPDATE: 'user.booking.update',
+  MYSABAY_USER_PURCHASE_EXTERNAL_SERVICE:
+    'mysabay.testing.purchase.external.service',
+};
+
+const EXCHANGE_QUEUE_MESSAGE_KEY = {
+  SABAY_ONE_USER_PURCHASE_UPDATE_QUEUE: 'one.testing.purchase.update.queue',
+  USER_BOOKING_UPDATE_QUEUE: 'user.booking.update.queue',
+};
+
+enum CONTENT_TYPE {
+  Movies = 'Movies',
+  Podcast = 'Podcast',
+  Book = 'Book',
+}
+
+enum USER_TRACK_CONTENT_TYPE {
+  Article = 'Article',
+  Video = 'Video',
+  Audio = 'Audio',
+  Movies = 'Movies',
+  Podcast = 'Podcast',
+  Book = 'Book',
+}
+
+enum PURCHASE_STATUS {
+  Open = 'Open',
+  Completed = 'Completed',
+}
+enum BOOKING_STATUS {
+  Waiting = 'Waiting',
+  Approved = 'Approved',
+}
+enum PURCHASE_STATUS_CODE {
+  Open = 1,
+  Completed = 2,
+}
+
+enum PAYMENT_STATUS {
+  Pending = 'Pending',
+  Completed = 'Completed',
+  Failed = 'Failed',
+}
+
+const PAYMENT_STATUS_CODE = {
+  Approved: 0,
+};
+
+const RESPONSE_CODE = {
+  SUCCESS: '00',
+  UNAUTHORIZED: 'AZ001',
+  UNAUTHENTICATED: 'AZ002',
+  ACCOUNT_DISABLED: 'AZ003',
+  UNVERIFIED_HASH: 'AZ004',
+  AUTHENTICATION_EXPIRED: 'AZ005',
+  REDIS_EXPIRED: 'AZ006',
+  NOT_VERIFY_USER: 'AZ007',
+  NOT_FOUND_INPUT: 'UI001',
+  ALREADY_EXISTS: 'UI002',
+  VAR_NOT_FOUND: 'UI003',
+  MISSING_HEADER: 'UI005',
+  INVALID_INPUT: 'UI006',
+  TEMPORARY_LOCKED: 'UI008',
+  INVALID_DATE_TIME: 'UI009',
+  WALLET_ADDRESS_MISMATCH: 'UI010',
+  INTERNAL_SERVER_ERROR: 'SM001',
+  SERVICE_UNAVAILABLE: 'SM002',
+};
+
+const RESPONSE_STATUS = {
+  SUCCESS: 'success',
+  FAILED: 'failed',
+};
+
+const GRAPHQL_ERROR_CODE = {
+  GRAPHQL_PARSE_FAILED: RESPONSE_CODE.INVALID_INPUT,
+  GRAPHQL_VALIDATION_FAILED: RESPONSE_CODE.INVALID_INPUT,
+  BAD_USER_INPUT: RESPONSE_CODE.INVALID_INPUT,
+  PERSISTED_QUERY_NOT_FOUND: RESPONSE_CODE.INVALID_INPUT,
+  PERSISTED_QUERY_NOT_SUPPORTED: RESPONSE_CODE.INVALID_INPUT,
+  OPERATION_RESOLUTION_FAILURE: RESPONSE_CODE.INTERNAL_SERVER_ERROR,
+  BAD_REQUEST: RESPONSE_CODE.INVALID_INPUT,
+  INTERNAL_SERVER_ERROR: RESPONSE_CODE.INTERNAL_SERVER_ERROR,
+};
+
+const CURRENCY_CODE = {
+  SC: 'SC',
+  USD: 'USD',
+};
+
+const PAYMENT_SERVICE_PROVIDER = {
+  NAME: {
+    SABAY_COIN: 'Sabay Coin',
+    APPLE_PAYMENT: 'Apple Payment',
+  },
+  CODE: {
+    SABAY: 'sabay',
+    APPLE: 'apple_pay',
+  },
+};
+const USD_EXCHANGE_RATE = 4000;
+
+export {
+  ENVIRONMENT,
+  QUEUE_TYPE,
+  MESSAGE_KEY,
+  EXCHANGE_QUEUE_MESSAGE_KEY,
+  CONTENT_TYPE,
+  USER_TRACK_CONTENT_TYPE,
+  PURCHASE_STATUS,
+  PURCHASE_STATUS_CODE,
+  GRAPHQL_ERROR_CODE,
+  RESPONSE_CODE,
+  RESPONSE_STATUS,
+  CURRENCY_CODE,
+  PAYMENT_SERVICE_PROVIDER,
+  PAYMENT_STATUS,
+  USD_EXCHANGE_RATE,
+  PAYMENT_STATUS_CODE,
+  BOOKING_STATUS,
+};
