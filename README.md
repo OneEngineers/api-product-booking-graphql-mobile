@@ -22,7 +22,7 @@ services:
       - ./src:/home/node/app/src:rw
     container_name: one-api.local
     networks:
-      - sabay_docker
+      - api_docker
 
   worker:
     build:
@@ -34,10 +34,10 @@ services:
     volumes:
       - ./src:/home/node/app/src:rw
     networks:
-      - sabay_docker
+      - api_docker
 
 networks:
-  sabay_docker:
+  api_docker:
     external: true
 ```
 
@@ -67,8 +67,3 @@ This project using Jest for the test framework, to setup your local test environ
 `npm run test`
 
 Note: The test case result must be passed with testing coverage mark of 80%  or higher
-
-- intro java
-- intro of oop
-- 
-# api-graphql-mobile-product-weare-one
