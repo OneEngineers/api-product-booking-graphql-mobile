@@ -1,18 +1,10 @@
-# app.api.one.sabay.com
-
-[![pipeline status](https://git.sabay.com/sabay-one/backend/app.api.one.sabay.com/badges/master/pipeline.svg)](https://git.sabay.com/sabay-one/backend/app.api.one.sabay.com/commits/master)
-[![coverage report](https://git.sabay.com/sabay-one/backend/app.api.one.sabay.com/badges/master/coverage.svg)](https://git.sabay.com/sabay-one/backend/app.api.one.sabay.com/commits/master)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
-
-# GraphQL API for Sabay One
-
-Sabay One API is a unified backend service designed to handle core functionality related to user purchases, transactions, payment integration, preference management, and tracking across Sabay’s digital ecosystem.
+# GraphQL API for WeareOne
 
 It exposes modular APIs (REST + GraphQL) used by web and mobile clients for real-time transaction handling, user operations, and content validation.
 
 ## Setup
-1. Clone the repo
-`git clone https://git.sabay.com/sabay-one/backend/app.api.one.sabay.com.git`
+1. Clone the repository
+`git clone https://github.com/OneEngineers/api-product-graphql-mobile.git`
 2. From root directory run make config to generate .env file.
 3. Create docker-compose.yml file on root directory and add below:
 ```

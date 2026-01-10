@@ -1,10 +1,10 @@
 {
-  "name": "app.api.one.sabay.com",
+  "name": "api-product-graphql-mobile",
   "version": "1.0.0",
-  "description": "Graphql API for Sabay One",
+  "description": "Graphql API for mobile product management",
   "main": "src/app.ts",
   "keywords": [],
-  "author": "Sabay TEKH",
+  "author": "Mai Reaksa",
   "license": "MIT",
   "private": true,
   "scripts": {

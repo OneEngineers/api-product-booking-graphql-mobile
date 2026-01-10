@@ -9,7 +9,6 @@ RUN npm i --legacy-peer-deps
 # Copy the rest of the application code
 COPY . .
 
-# Build the application (e.g., if using TypeScript or a frontend framework)
 RUN npm run build
 
 # build release image

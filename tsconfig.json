@@ -5,7 +5,6 @@
     "lib": ["dom", "es6"],
     "target": "ES2019",
     "module": "commonjs",
-    // "moduleResolution": "node",
     "esModuleInterop": true,
     "types": ["jest", "node"],
     "sourceMap": false,
