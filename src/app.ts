@@ -13,7 +13,7 @@ import {
   RESPONSE_STATUS,
 } from './constants';
 import { buildSchema } from 'type-graphql';
-// import tracingPlugin from './graphql/plugins/tracingPlugin';
+import tracingPlugin from './graphql/plugins/tracingPlugin';
 import { dbStatus, rabbitMqStatus } from './configs';
 import { buildAppHeaderContext } from './graphql/plugins/buildAppHeaderContext';
 
@@ -62,11 +62,12 @@ const startServer = async () => {
       ApolloServerPluginLandingPageLocalDefault({
         embed: ENV.ENABLE_INTROSPECTION as boolean,
       }),
-      // {
-      //   requestDidStart: tracingPlugin.requestDidStart,
-      // },
+      {
+        requestDidStart: tracingPlugin.requestDidStart,
+      },
     ],
     context: buildAppHeaderContext,
+    introspection: ENV.ENABLE_INTROSPECTION === true,
     formatError: (error) => {
       if (global.span) {
         global.span.setTag(Tags.ERROR, true);

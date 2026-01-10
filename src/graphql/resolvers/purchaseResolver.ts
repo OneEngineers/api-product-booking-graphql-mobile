@@ -26,7 +26,6 @@ import {
   listUserOrderAction,
   userPlaceOrderAction,
   getUserOrderByIdAction,
-  notifyApplePaymentAction,
   UpdateUserPurchaseStatusAction,
 } from '../../controllers';
 import { AppHeaderContext } from '../plugins/buildAppHeaderContext';
@@ -96,18 +95,6 @@ export class PurchaseResolver {
     return await controllerCallback(
       getUserOrderByIdAction,
       data,
-      context.userContext?.user
-    );
-  }
-
-  @Mutation(() => DataPurchaseDetail, { nullable: true })
-  async notifyApplePayment(
-    @Ctx() context: AppHeaderContext,
-    @Arg('signedPayload') signedPayload: string
-  ): Promise<DataPurchaseDetail> {
-    return await controllerCallback(
-      notifyApplePaymentAction,
-      signedPayload,
       context.userContext?.user
     );
   }
