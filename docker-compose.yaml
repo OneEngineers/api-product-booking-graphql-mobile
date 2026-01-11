@@ -18,6 +18,7 @@ services:
     build:
       context: .
       dockerfile: ./build/app/Dockerfile.dev
+    container_name: one-worker.testing
     command: 'worker:start'
     env_file:
       - .env

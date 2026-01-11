@@ -1,5 +1,4 @@
 import dotEnv from 'dotenv';
-import { Environment } from '@apple/app-store-server-library';
 
 const isUnitTest = ['test', 'ci_test'].includes(process.env.NODE_ENV);
 if (isUnitTest) dotEnv.config({ path: './src/test/.test.env' });
@@ -47,10 +46,8 @@ const {
   PAYMENT_ADDRESS_DOMAIN,
   API_SSN_URL,
 
-  APPLE_CA_CERTIFICATE,
   APPLE_BUNDLE_ID,
   APPLE_APP_ID,
-  APPLE_ENVIRONMENT,
   APPLE_ENABLE_ONLINE_CHECK,
   APPLE_TEST,
   MICROSERVICE_JWT_SK,
@@ -106,10 +103,8 @@ const ENV = {
   PAYMENT_ADDRESS_DOMAIN,
   API_SSN_URL,
 
-  APPLE_CA_CERTIFICATE: APPLE_CA_CERTIFICATE || 'AppleRootCA-G3.cer',
   APPLE_BUNDLE_ID,
   APPLE_APP_ID: Number(APPLE_APP_ID),
-  APPLE_ENVIRONMENT: APPLE_ENVIRONMENT || Environment.SANDBOX,
   APPLE_ENABLE_ONLINE_CHECK: APPLE_ENABLE_ONLINE_CHECK === 'true',
   APPLE_TEST: APPLE_TEST ? JSON.parse(APPLE_TEST) : true,
   MICROSERVICE_JWT_SK,

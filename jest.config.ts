@@ -21,7 +21,7 @@ export default {
     '/src/models/',
     '/src/test/mock/',
   ],
-  // globals: { 'ts-jest': { diagnostics: false } },
+  globals: { 'ts-jest': { diagnostics: false } },
   transform: {},
   verbose: true,
   setupFilesAfterEnv: ['./jest.setup.ts'],

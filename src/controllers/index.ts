@@ -8,7 +8,6 @@ import validatePurchaseContentAction from './validatePurchaseContentAction';
 import listUserOrderAction from './listUserOrderAction';
 import getUserOrderByIdAction from './getUserOrderByIdAction';
 import getPurchaseItemByPurchaseAction from './getPurchaseItemByPurchaseAction';
-import notifyApplePaymentAction from './notifyApplePaymentAction';
 import createUserReferrerAction from './createUserReferrerAction';
 import listUserReferrerAction from './listUserReferrerAction';
 import UpdateUserPurchaseStatusAction from './updateUserPurchaseStatusAction';
@@ -16,7 +15,7 @@ import validateBookingContentAction from './validateBookingContentAction';
 import listUserBookingAction from './listUserBookingAction';
 import getUserBookingByIdAction from './getUserBookingByIdAction';
 import UpdateUserBookingStatusAction from './UpdateUserBookingStatusAction';
-import userBookingeAction from './userBookingAction';
+
 export {
   listUserHistoryLogsAction,
   logUserHistoryAction,
@@ -28,7 +27,6 @@ export {
   listUserOrderAction,
   getUserOrderByIdAction,
   getPurchaseItemByPurchaseAction,
-  notifyApplePaymentAction,
   createUserReferrerAction,
   listUserReferrerAction,
   UpdateUserPurchaseStatusAction,
@@ -36,5 +34,4 @@ export {
   listUserBookingAction,
   getUserBookingByIdAction,
   UpdateUserBookingStatusAction,
-  userBookingeAction,
 };
