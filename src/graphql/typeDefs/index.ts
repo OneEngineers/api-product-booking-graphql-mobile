@@ -6,7 +6,6 @@ export * from './purchaseTypeDefs';
 export * from './purchaseDataResponseTypeDefs';
 export * from './purchaseItemTypeDefs';
 export * from './utilsTypeDefs';
-export * from './userReferrerTypeDefs';
 export * from './bookingDataResponseTypeDefs';
 export * from './bookingItemTypeDefs';
 export * from './bookingTypeDefs';
