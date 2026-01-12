@@ -8,8 +8,6 @@ import validatePurchaseContentAction from './validatePurchaseContentAction';
 import listUserOrderAction from './listUserOrderAction';
 import getUserOrderByIdAction from './getUserOrderByIdAction';
 import getPurchaseItemByPurchaseAction from './getPurchaseItemByPurchaseAction';
-import createUserReferrerAction from './createUserReferrerAction';
-import listUserReferrerAction from './listUserReferrerAction';
 import UpdateUserPurchaseStatusAction from './updateUserPurchaseStatusAction';
 import validateBookingContentAction from './validateBookingContentAction';
 import listUserBookingAction from './listUserBookingAction';
@@ -27,8 +25,6 @@ export {
   listUserOrderAction,
   getUserOrderByIdAction,
   getPurchaseItemByPurchaseAction,
-  createUserReferrerAction,
-  listUserReferrerAction,
   UpdateUserPurchaseStatusAction,
   validateBookingContentAction,
   listUserBookingAction,

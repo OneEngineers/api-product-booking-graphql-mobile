@@ -3,7 +3,6 @@ export * from './userTrackingRepository';
 export * from './preferencesRepository';
 export * from './purchaseRepository';
 export * from './purchaseItemRepository';
-export * from './userReferrerRepository';
 export * from './bookingItemRepository';
 export * from './bookingRepository';
 export * from './transactionBookingRepository';
