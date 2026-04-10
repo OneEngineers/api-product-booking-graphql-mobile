@@ -7,20 +7,20 @@ import {
   RESPONSE_CODE,
   RESPONSE_STATUS,
 } from '../constants';
-import {
-  PaymentPushBackInfo,
-  PaymentPushBackResponse,
-} from '../graphql/typeDefs';
 import { TransactionLogService } from '../services/transactionLogService';
 import { debug, getPayWayTxnDetail, sendToQueue } from '../utils';
 import { PurchaseService } from '../services';
 import { TransactionLog } from '../entities/transactionLog';
 import { Purchase } from '../entities';
+import {
+  BookingPushBackInfo,
+  BookingPushBackResponse,
+} from '../graphql/typeDefs/bookingTypeDefs';
 
-const onlinePaymentNotifyAction = async (
-  input: PaymentPushBackInfo
-): Promise<PaymentPushBackResponse> => {
-  const { transactionId, status: transactionStatus, apv } = input;
+const updateUserBookingByAdmin = async (
+  input: BookingPushBackInfo
+): Promise<BookingPushBackResponse> => {
+  const { transactionId, status: transactionStatus, adp } = input;
   // 1. Check existence of transaction log
   const transactionLogService = new TransactionLogService();
   const transactionLog = await transactionLogService.getTransactionLog({
@@ -78,7 +78,7 @@ const onlinePaymentNotifyAction = async (
 
     const updateTxnData = {
       payment_status: PAYMENT_STATUS.Completed,
-      bank_apv: apv,
+      bank_apv: adp,
       payment_type: checkTxnDetails.payment_type,
       paid_date: moment.now(),
       updated_at: moment.now(),
@@ -120,4 +120,4 @@ const onlinePaymentNotifyAction = async (
   };
 };
 
-export default onlinePaymentNotifyAction;
+export default updateUserBookingByAdmin;

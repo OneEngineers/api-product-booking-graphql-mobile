@@ -11,11 +11,22 @@ export interface UserContext {
     displayName?: string;
   };
 }
-
+export interface UserAdmin {
+  admin?: {
+    uuid?: string;
+    serviceCode?: string;
+    mysabayUserID?: number;
+    type?: string;
+    emailVerified?: number;
+    phoneVerified?: number;
+    displayName?: string;
+  };
+}
 export interface AppHeaderContext {
   protocol?: string;
   serviceCode?: string;
   userContext?: UserContext;
+  adminContext?: UserAdmin;
   spanParent?: unknown;
   userAgent?: string;
   ipAddress?: string;

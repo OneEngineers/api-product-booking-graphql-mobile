@@ -1,10 +1,10 @@
-import { Field, InputType, ObjectType } from 'type-graphql';
+import { Field, InputType, ObjectType, Int } from 'type-graphql';
 import { Booking, BookingItem } from '../../entities';
 import { BOOKING_STATUS, CONTENT_TYPE } from '../../constants';
 import { PagerInput } from './utilsTypeDefs';
 import { PaginatedResponse, Pagination } from './paginationTypeDef';
-import GraphQLJSON from 'graphql-type-json';
 import { BookingDataResponse } from './bookingDataResponseTypeDefs';
+import GraphQLJSON from 'graphql-type-json';
 
 @ObjectType()
 export class DataBooking extends BookingDataResponse(Booking, 'BookingData') {}
@@ -48,6 +48,9 @@ export class BookingInput {
 
   @Field(() => Number)
   quantity?: number;
+
+  @Field(() => Number)
+  bookingDay?: number;
 }
 
 @InputType()
@@ -78,18 +81,32 @@ export class ListUserBookingInput {
 }
 
 @ObjectType()
-export class BookingDetailWitBookingItem extends Booking {
+export class BookingDetailWitBokingItem extends Booking {
   @Field(() => [BookingItemDetail], { nullable: true })
   items?: BookingItemDetail[];
 }
 
 @ObjectType()
-export class BookingPaginatedData {
-  @Field(() => [BookingDetailWitBookingItem])
-  documents: BookingDetailWitBookingItem[];
+export class PaginatedBookingData {
+  @Field(() => [BookingDetailWitBokingItem])
+  documents: BookingDetailWitBokingItem[];
 
   @Field(() => Pagination)
   pagination: Pagination;
+}
+@InputType()
+export class BookingInfoInput {
+  @Field(() => String)
+  transactionId: string;
+
+  @Field(() => String)
+  transactionHash: string;
+
+  @Field(() => Number)
+  amount: number;
+
+  @Field(() => String)
+  service_reffer: string;
 }
 
 @ObjectType()
@@ -100,8 +117,8 @@ export class UserBookingDataResponse {
   @Field(() => String, { nullable: true })
   status?: string;
 
-  @Field(() => BookingPaginatedData, { nullable: true })
-  data?: BookingPaginatedData;
+  @Field(() => PaginatedBookingData, { nullable: true })
+  data?: PaginatedBookingData;
 }
 
 @InputType()
@@ -111,4 +128,73 @@ export class UpdateBookingStatusInput {
 
   @Field(() => BOOKING_STATUS)
   status!: BOOKING_STATUS;
+}
+
+@ObjectType()
+export class BookingPushBackResponse {
+  @Field(() => String)
+  code: string;
+
+  @Field(() => String, { nullable: true })
+  status?: string;
+
+  @Field(() => String, { nullable: true })
+  message?: string;
+}
+
+@InputType()
+export class BookingPushBackInfo {
+  @Field(() => String)
+  transactionId: string;
+
+  @Field(() => Int)
+  status: number;
+
+  @Field(() => String, { nullable: true })
+  adp?: string;
+}
+
+@InputType()
+export class AdminApproveBookingInput {
+  @Field(() => String)
+  bookingId!: string;
+
+  @Field(() => String, { nullable: true })
+  approvalNotes?: string;
+
+  // @Field(() => String)
+  // adminId!: string;
+}
+
+@InputType()
+export class AdminRejectBookingInput {
+  @Field(() => String)
+  bookingId!: string;
+
+  @Field(() => String)
+  reason!: string;
+
+  @Field(() => String)
+  adminId!: string;
+}
+
+@InputType()
+export class CompleteBookingInput {
+  @Field(() => String)
+  bookingId!: string;
+}
+
+@ObjectType()
+export class AdminApprovalResponse {
+  @Field(() => String)
+  code: string;
+
+  @Field(() => String)
+  status: string;
+
+  @Field(() => String, { nullable: true })
+  message?: string;
+
+  @Field(() => BookingDetail, { nullable: true })
+  data?: BookingDetail;
 }

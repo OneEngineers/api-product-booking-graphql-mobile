@@ -1,4 +1,4 @@
-import { Field, InputType, Int, ObjectType } from 'type-graphql';
+import { Field, InputType, ObjectType } from 'type-graphql';
 import { Purchase, PurchaseItem } from '../../entities';
 import { CONTENT_TYPE, PURCHASE_STATUS } from '../../constants';
 import { PurchaseDataResponse } from './purchaseDataResponseTypeDefs';
@@ -138,60 +138,4 @@ export class PaymentInfoInput {
 
   @Field(() => Number)
   amount: number;
-}
-
-@ObjectType()
-export class PaymentPushBackData {
-  @Field(() => String)
-  transactionId: string;
-
-  @Field(() => Int)
-  status: number;
-
-  @Field(() => String, { nullable: true })
-  apv?: string;
-
-  @Field(() => String, { nullable: true })
-  message?: string;
-}
-@ObjectType()
-export class PaymentPushBackResponse {
-  @Field(() => String)
-  code: string;
-
-  @Field(() => String, { nullable: true })
-  status?: string;
-
-  @Field(() => String, { nullable: true })
-  message?: string;
-}
-
-@InputType()
-export class PaymentPushBackInfo {
-  @Field(() => String)
-  transactionId: string;
-
-  @Field(() => Int)
-  status: number;
-
-  @Field(() => String, { nullable: true })
-  apv?: string;
-}
-
-@InputType()
-export class PaymentPushBackInfoWingBank {
-  @Field(() => String)
-  referenceId: string;
-}
-
-@ObjectType()
-export class PaymentPushBackResponseWingBank {
-  @Field(() => String)
-  code: string;
-
-  @Field(() => String, { nullable: true })
-  status?: string;
-
-  @Field(() => String, { nullable: true })
-  message?: string;
 }

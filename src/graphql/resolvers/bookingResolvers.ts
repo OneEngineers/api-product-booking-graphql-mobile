@@ -11,18 +11,18 @@ import { Booking } from '../../entities';
 import {
   UserBookingDataResponse,
   ListUserBookingInput,
-  DataBooking,
-  BookingInput,
   DataBookingDetail,
   BookingDetailInput,
   UpdateBookingStatusInput,
+  BookingInput,
+  DataBooking,
 } from '../typeDefs';
 import { AnyObject } from '../../types';
 import {
-  userPlaceOrderAction,
   listUserBookingAction,
   getUserBookingByIdAction,
   UpdateUserBookingStatusAction,
+  createUserBookingAction,
 } from '../../controllers';
 import { AppHeaderContext } from '../plugins/buildAppHeaderContext';
 
@@ -32,40 +32,13 @@ export class BookingResolver {
   @UseMiddleware(userMiddleware)
   async listUserBooking(
     @Ctx() context: AppHeaderContext,
-    @Arg('hash', { nullable: true }) hash: string,
-    @Arg('signature', { nullable: true }) signature: string,
-    @Arg('timestamp', { nullable: true }) timestamp: number,
     @Arg('input')
     input: ListUserBookingInput
   ): Promise<UserBookingDataResponse> {
-    const data = { hash, signature, timestamp, input };
+    const data = { input };
 
     return await controllerCallback<typeof data, UserBookingDataResponse>(
       listUserBookingAction,
-      data,
-      context.userContext?.user
-    );
-  }
-
-  @Mutation(() => DataBooking, { nullable: true })
-  @UseMiddleware(userMiddleware)
-  async userBookings(
-    @Ctx() context: AnyObject,
-    @Arg('hash', { nullable: true }) hash: string,
-    @Arg('signature', { nullable: true }) signature: string,
-    @Arg('timestamp', { nullable: true }) timestamp: number,
-    @Arg('appAccountToken', { nullable: true }) appAccountToken: string,
-    @Arg('input', () => [BookingInput]) input: BookingInput[]
-  ) {
-    const data = {
-      hash,
-      signature,
-      timestamp,
-      input,
-      appAccountToken,
-    };
-    return await controllerCallback(
-      userPlaceOrderAction,
       data,
       context.userContext?.user
     );
@@ -100,6 +73,22 @@ export class BookingResolver {
     const data = { hash, signature, timestamp, input };
     return await controllerCallback(
       UpdateUserBookingStatusAction,
+      data,
+      context.userContext?.user
+    );
+  }
+
+  @Mutation(() => DataBooking, { nullable: true })
+  @UseMiddleware(userMiddleware)
+  async createBooking(
+    @Ctx() context: AnyObject,
+    @Arg('input', () => [BookingInput]) input: BookingInput[]
+  ) {
+    const data = {
+      input,
+    };
+    return await controllerCallback(
+      createUserBookingAction,
       data,
       context.userContext?.user
     );

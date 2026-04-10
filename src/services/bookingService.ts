@@ -4,13 +4,17 @@ import { Booking } from '../entities';
 import { Types } from 'mongoose';
 import { AnyObject, ObjectId, RepoFindOptions } from '../types';
 import {
-  PagerInput,
+  ENV,
+  RESPONSE_CODE,
+  RESPONSE_STATUS,
+  BOOKING_STATUS,
+} from '../constants';
+import { getContentAttribute, pagination } from '../utils';
+import {
   ListUserBookingFilterInput,
   UserBookingDataResponse,
-} from '../graphql/typeDefs';
-import { ENV, RESPONSE_CODE, RESPONSE_STATUS } from '../constants';
-import { getContentAttribute, pagination } from '../utils';
-
+} from '../graphql/typeDefs/bookingTypeDefs';
+import { PagerInput } from '../graphql/typeDefs';
 export class BookingService {
   private bookingRepository: BookingRepository = new BookingRepositoryImpl();
 
@@ -22,7 +26,7 @@ export class BookingService {
     return await this.bookingRepository.findOne(query);
   }
 
-  async getBookingeById(id: string): Promise<Booking> {
+  async getBookingById(id: string): Promise<Booking> {
     const query: { [index: string]: unknown } = {
       _id: new Types.ObjectId(id),
     };
@@ -106,7 +110,7 @@ export class BookingService {
     to get content attribute from cms to append into purchase item
     */
     for (const booking of listBooking) {
-      for (const item of booking.items) {
+      for (const item of booking.item) {
         const contentAttribute = await getContentAttribute(
           item.item_type,
           item.item_id
@@ -115,7 +119,7 @@ export class BookingService {
       }
     }
 
-    const totalUserBookingWithPagination = pagination(
+    const totalUserOrderWithPagination = pagination(
       listBooking as Booking[],
       totalCount,
       pager?.page,
@@ -126,11 +130,27 @@ export class BookingService {
       code: RESPONSE_CODE.SUCCESS,
       status: RESPONSE_STATUS.SUCCESS,
       data: {
-        documents: totalUserBookingWithPagination.documents,
-        pagination: totalUserBookingWithPagination.pagination,
+        documents: totalUserOrderWithPagination.documents,
+        pagination: totalUserOrderWithPagination.pagination,
       },
     };
     return userBookingData;
+  }
+
+  async getBookingByHash(hash: string): Promise<Booking> {
+    const query: { [index: string]: unknown } = {
+      ssn_txn_hash: hash,
+    };
+    return this.bookingRepository.findOne(query);
+  }
+
+  async getPurchaseByAppAccountToken(
+    appAccountToken: string
+  ): Promise<Booking> {
+    const query: { [index: string]: unknown } = {
+      app_account_token: appAccountToken,
+    };
+    return this.bookingRepository.findOne(query);
   }
 
   async updateBookingStatusByUser(
@@ -151,5 +171,61 @@ export class BookingService {
     };
 
     return this.bookingRepository.findOneAndUpdate(query, update, options);
+  }
+
+  async approveBookingByAdmin(
+    bookingId: string,
+    adminId: string,
+    notes?: string
+  ): Promise<Booking> {
+    const query: { [index: string]: unknown } = {
+      _id: new Types.ObjectId(bookingId),
+      status: BOOKING_STATUS.Open,
+    };
+
+    const update: { [index: string]: unknown } = {
+      status: BOOKING_STATUS.Approved,
+      admin_approved_by: adminId,
+      admin_approval_notes: notes || '',
+      approved_at: moment.now(),
+      updated_at: moment.now(),
+    };
+
+    return await this.bookingRepository.updateOne(query, update);
+  }
+
+  async rejectBookingByAdmin(
+    bookingId: string,
+    adminId: string,
+    reason: string
+  ): Promise<Booking> {
+    const query: { [index: string]: unknown } = {
+      _id: new Types.ObjectId(bookingId),
+    };
+
+    const update: { [index: string]: unknown } = {
+      status: BOOKING_STATUS.Rejected,
+      admin_rejected_by: adminId,
+      rejection_reason: reason,
+      rejected_at: moment.now(),
+      updated_at: moment.now(),
+    };
+
+    return await this.bookingRepository.updateOne(query, update);
+  }
+
+  async completeBooking(bookingId: string): Promise<Booking> {
+    const query: { [index: string]: unknown } = {
+      _id: new Types.ObjectId(bookingId),
+      status: BOOKING_STATUS.Approved,
+    };
+
+    const update: { [index: string]: unknown } = {
+      status: BOOKING_STATUS.Completed,
+      completed_at: moment.now(),
+      updated_at: moment.now(),
+    };
+
+    return await this.bookingRepository.updateOne(query, update);
   }
 }
