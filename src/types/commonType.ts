@@ -29,9 +29,9 @@ type PaymentInfo = {
 type BookingInfo = {
   transactionId: string;
   transactionHash: string;
-  bookingAmount: number;
+  amount: number;
+  service_reffer: string;
 };
-
 export {
   AnyObject,
   RepoFindOptions,
