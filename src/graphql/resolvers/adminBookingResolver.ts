@@ -18,9 +18,12 @@ import {
 export class AdminBookingResolver {
   @Mutation(() => AdminApprovalResponse, { nullable: true })
   async adminApproveBooking(
+    @Ctx() context: AppHeaderContext,
     @Arg('input') input: AdminApproveBookingInput
   ): Promise<AdminApprovalResponse> {
-    return await controllerCallback(adminApproveBookingAction, input);
+    return await controllerCallback(adminApproveBookingAction, input, {
+      adminId: context.adminContext?.admin?.mysabayUserID?.toString(),
+    });
   }
 
   @Mutation(() => AdminApprovalResponse, { nullable: true })

@@ -5,21 +5,29 @@ import {
   RESPONSE_CODE,
   RESPONSE_STATUS,
 } from '../constants';
-import {
-  BookingInput,
-  DataBooking,
-  BookingInfoInput,
-} from '../graphql/typeDefs/bookingTypeDefs';
+import { BookingInput, DataBooking } from '../graphql/typeDefs/bookingTypeDefs';
 import { BookingService } from '../services/bookingService';
-import { debug, sendToQueue, getTransactionLogBookingData } from '../utils';
+import {
+  debug,
+  sendToQueue,
+  getTransactionLogBookingData,
+  generateHashWithTimestamp,
+} from '../utils';
 import { Booking, BookingItem } from '../entities';
 import { Types } from 'mongoose';
 import { BookingItemService, TransactionBookingService } from '../services';
+
+const buildBookingInfo = async (bookingData: Booking) => ({
+  transactionId: `BOOK-${bookingData._id?.toString()}-${Date.now()}`,
+  transactionHash: await generateHashWithTimestamp(bookingData._id?.toString()),
+  amount: bookingData.total_amount,
+  service_reffer: `booking-${bookingData._id?.toString()}`,
+});
+
 const createUserBookingAction = async (
   data: {
-    total: 0;
+    total?: number;
     input: BookingInput[];
-    bookingInfo: BookingInfoInput;
   },
   user: { mysabayUserID?: number }
 ): Promise<DataBooking> => {
@@ -90,16 +98,16 @@ const createUserBookingAction = async (
         }
 
         // create transaction log for direct payment by any bank pay_way
-        if (data?.bookingInfo) {
-          const transactionLogData = getTransactionLogBookingData(
-            getBookingData,
-            data?.bookingInfo,
-            item.itemType,
-            item.itemId
-          );
+        const bookingInfo = await buildBookingInfo(getBookingData);
 
-          await transactionLogService.createTransactionLog(transactionLogData);
-        }
+        const transactionLogData = getTransactionLogBookingData(
+          getBookingData,
+          bookingInfo,
+          item.itemType,
+          item.itemId
+        );
+
+        await transactionLogService.createTransactionLog(transactionLogData);
 
         return {
           code: RESPONSE_CODE.SUCCESS,
@@ -142,15 +150,16 @@ const createUserBookingAction = async (
     // Save the new user purchase and purchase items
     const dataUserBooking = await bookingService.createBooking(newBooking);
     await bookingItemService.createManyUserBookingItems(newBookingItems);
-    if (data?.bookingInfo) {
-      const transactionLogData = getTransactionLogBookingData(
-        dataUserBooking,
-        data?.bookingInfo,
-        newBookingItems[0]?.item_type,
-        newBookingItems[0]?.item_id
-      );
-      await transactionLogService.createTransactionLog(transactionLogData);
-    }
+
+    const bookingInfo = await buildBookingInfo(dataUserBooking);
+
+    const transactionLogData = getTransactionLogBookingData(
+      dataUserBooking,
+      bookingInfo,
+      newBookingItems[0]?.item_type,
+      newBookingItems[0]?.item_id
+    );
+    await transactionLogService.createTransactionLog(transactionLogData);
     // Send booking created notification to admin for approval
     try {
       await sendToQueue(
