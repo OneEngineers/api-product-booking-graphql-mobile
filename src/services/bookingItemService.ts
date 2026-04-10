@@ -30,17 +30,17 @@ export class BookingItemService {
   }
 
   async createManyUserBookingItems(
-    dataUserBookingItem: BookingItem[]
+    dataUserBookingItems: BookingItem[]
   ): Promise<BookingItem[]> {
-    return await this.bookingItemRepository.insertMany(dataUserBookingItem);
+    return await this.bookingItemRepository.insertMany(dataUserBookingItems);
   }
 
   async updateUserBookingItem(
-    bookkingItemId: ObjectId,
+    bookingItemId: ObjectId,
     updateData: any
   ): Promise<boolean> {
     const query: { [index: string]: unknown } = {
-      _id: bookkingItemId,
+      _id: bookingItemId,
     };
     const update: { [index: string]: unknown } = {
       ...updateData,
@@ -75,7 +75,7 @@ export class BookingItemService {
     const options: RepoFindOptions = {};
     const query: { [index: string]: unknown } = {
       user_id: userId,
-      purchase_id: bookingId,
+      bookin_id: bookingId,
     };
     options.sort = [['created_at', -1]];
     const bookingItems = await this.bookingItemRepository.find(query, options);

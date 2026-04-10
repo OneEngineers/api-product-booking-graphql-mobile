@@ -8,15 +8,18 @@ const QUEUE_TYPE = {
 };
 
 const MESSAGE_KEY = {
-  SABAY_ONE_USER_PURCHASE_UPDATE: 'one.testing.purchase.update',
-  USER_BOOKING_UPDATE: 'user.booking.update',
+  SABAY_ONE_USER_BOOKING_CREATE: 'sabay.one.user.booking.create',
+  SABAY_ONE_USER_BOOKING_APPROVED: 'sabay.one.user.booking.approved',
+  SABAY_ONE_USER_PURCHASE_UPDATE: 'sabay.one.user.purchase.update',
   MYSABAY_USER_PURCHASE_EXTERNAL_SERVICE:
-    'mysabay.testing.purchase.external.service',
+    'mysabay.user.purchase.external.service',
 };
 
 const EXCHANGE_QUEUE_MESSAGE_KEY = {
-  SABAY_ONE_USER_PURCHASE_UPDATE_QUEUE: 'one.testing.purchase.update.queue',
-  USER_BOOKING_UPDATE_QUEUE: 'user.booking.update.queue',
+  SABAY_ONE_USER_BOOKING_CREATE_QUEUE: 'sabay.one.user.booking.create.queue',
+  SABAY_ONE_USER_BOOKING_APPROVED_QUEUE:
+    'sabay.one.user.booking.approved.queue',
+  SABAY_ONE_USER_PURCHASE_UPDATE_QUEUE: 'sabay.one.user.purchase.update.queue',
 };
 
 enum CONTENT_TYPE {
@@ -39,8 +42,11 @@ enum PURCHASE_STATUS {
   Completed = 'Completed',
 }
 enum BOOKING_STATUS {
+  Open = 'Open',
   Waiting = 'Waiting',
   Approved = 'Approved',
+  Rejected = 'Rejected',
+  Completed = 'Completed',
 }
 enum PURCHASE_STATUS_CODE {
   Open = 1,

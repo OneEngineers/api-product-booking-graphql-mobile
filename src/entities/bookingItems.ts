@@ -53,10 +53,9 @@ export class BookingItem {
 
   @GqlField(() => Float, { name: 'amount' })
   @DbField({
-    required: true,
     min: [0, 'Amount must be positive!'],
   })
-  amount!: number;
+  amount: number;
 
   @GqlField(() => Float, { name: 'expireDate' })
   @DbField({ index: true, default: 0, alias: 'expireDate' })

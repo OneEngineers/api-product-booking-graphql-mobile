@@ -1,5 +1,3 @@
-import fs from 'fs';
-import path from 'path';
 import moment from 'moment';
 import {
   BOOKING_STATUS,
@@ -179,18 +177,6 @@ export const convertKHRToSC = (KHRAmount: number) => {
 export const convertKHRToUSD = (KHRAmount: number) => {
   const usdAmount = KHRAmount / USD_EXCHANGE_RATE;
   return usdAmount;
-};
-
-export const getCaCertificate = async () => {
-  const caCertPath = path.resolve(
-    __dirname,
-    `../certificate/${ENV.APPLE_CA_CERTIFICATE}`
-  );
-  if (fs.existsSync(caCertPath)) {
-    return [fs.readFileSync(caCertPath)];
-  } else {
-    throw new Error('Apple certificate not found.');
-  }
 };
 
 export const calculatePrice = (

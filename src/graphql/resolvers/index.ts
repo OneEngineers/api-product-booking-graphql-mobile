@@ -5,7 +5,7 @@ import { PurchaseResolver } from './purchaseResolver';
 import { PurchaseItemResolvers } from './purchaseItemResolvers';
 import { TransactionLogResolver } from './transactionLogResolver';
 import { BookingResolver } from './bookingResolvers';
-
+import { AdminBookingResolver } from './AdminBookingResolver';
 export default [
   HistoryLogResolver,
   UserTrackingResolver,
@@ -14,4 +14,5 @@ export default [
   PurchaseItemResolvers,
   TransactionLogResolver,
   BookingResolver,
+  AdminBookingResolver,
 ];

@@ -8,9 +8,6 @@ export function BookingDataResponse<TItem extends object>(
   class BookingData {
     @Field(() => itemsField)
     document: TItem;
-
-    @Field(() => String, { nullable: true })
-    paymentAddress: string;
   }
 
   @ObjectType()

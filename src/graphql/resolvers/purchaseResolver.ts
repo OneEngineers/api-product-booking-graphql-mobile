@@ -16,8 +16,6 @@ import {
   DataPurchaseDetail,
   PurchaseDetailInput,
   UpdatePurchaseStatusInput,
-  PaymentPushBackInfo,
-  PaymentPushBackResponse,
   PaymentServiceProviderInput,
   PaymentInfoInput,
 } from '../typeDefs';
@@ -29,7 +27,6 @@ import {
   UpdateUserPurchaseStatusAction,
 } from '../../controllers';
 import { AppHeaderContext } from '../plugins/buildAppHeaderContext';
-import onlinePaymentNotifyAction from '../../controllers/onlinePaymentNotifyAction';
 @Resolver(Purchase)
 export class PurchaseResolver {
   @Query(() => UserPurchaseDataResponse)
@@ -114,12 +111,5 @@ export class PurchaseResolver {
       data,
       context.userContext?.user
     );
-  }
-
-  @Mutation(() => PaymentPushBackResponse, { nullable: true })
-  async onlinePaymentNotify(
-    @Arg('input') input: PaymentPushBackInfo
-  ): Promise<PaymentPushBackResponse> {
-    return await controllerCallback(onlinePaymentNotifyAction, input);
   }
 }

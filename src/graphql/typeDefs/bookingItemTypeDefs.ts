@@ -16,4 +16,7 @@ export class BookingItemInput {
 
   @Field(() => String)
   contentId: string;
+
+  @Field(() => String)
+  streamUrl?: string;
 }
