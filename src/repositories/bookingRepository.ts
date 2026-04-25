@@ -108,9 +108,9 @@ export class BookingRepositoryImpl implements BookingRepository {
 
     // Extracting totalCount and data
     const totalCount = result[0]?.totalCount[0]?.total || 0;
-    const listPurchase = result[0]?.data || [];
+    const listBooking = result[0]?.data || [];
 
-    return { totalCount, listPurchase };
+    return { totalCount, listBooking };
   }
   async findOneAndUpdate(
     query: AnyObject,

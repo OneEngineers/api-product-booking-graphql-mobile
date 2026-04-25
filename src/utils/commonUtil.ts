@@ -332,12 +332,26 @@ export const getTotalAmountBaseOnPSP = (
   return paymentInfo ? paymentInfo.amount : itemTotalAmount;
 };
 
-export const totalBookingAmount = (contentData: any, item: any) => {
-  const itemTotalAmount = 0;
-  return itemTotalAmount;
-};
 export const getTotalAmountCMS = (itemTotalAmount: number) => {
   // paymentinfo amount is the totalAmount for direct purchase with pay_way
   // itemTotalAmount is the amount that calculated for purchase with SC or Apple pay
   return itemTotalAmount;
+};
+export const getTransactionLogBookingData = (
+  bookingData: Booking,
+  bookingInfo: BookingInfo,
+  itemType?: string,
+  itemId?: string
+) => {
+  const transactionLog: TransactionBooking = {
+    transaction_id: bookingInfo.transactionId,
+    transaction_hash: bookingInfo.transactionHash,
+    book_id: bookingData._id,
+    total_amount: bookingData.total_amount,
+    booking_status: BOOKING_STATUS.Waiting,
+    detail: { item_type: itemType, item_id: itemId },
+    created_at: moment.now(),
+  };
+
+  return transactionLog;
 };

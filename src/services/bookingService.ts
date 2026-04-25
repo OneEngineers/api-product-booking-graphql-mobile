@@ -77,6 +77,7 @@ export class BookingService {
     filter: ListUserBookingFilterInput,
     pager?: PagerInput
   ): Promise<UserBookingDataResponse> {
+    console.log('User ID:', mysabayUserID);
     const options: RepoFindOptions = {};
     const query: { [index: string]: unknown } = {
       user_id: mysabayUserID,
@@ -105,12 +106,16 @@ export class BookingService {
     const { totalCount, listBooking } =
       await this.bookingRepository.listUserBooking(query, options);
 
+    console.log('Query:', query);
+    console.log('Total count:', totalCount);
+    console.log('List booking length:', listBooking.length);
+
     /*
     loop purchase item inside loop purchase
     to get content attribute from cms to append into purchase item
     */
     for (const booking of listBooking) {
-      for (const item of booking.item) {
+      for (const item of booking.items) {
         const contentAttribute = await getContentAttribute(
           item.item_type,
           item.item_id

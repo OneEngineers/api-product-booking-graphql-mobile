@@ -72,13 +72,6 @@ export class TransactionBooking {
   @DbField({ alias: 'paidDate', default: null })
   paid_date?: number;
 
-  @GqlField(() => String, { name: 'bookingType', nullable: true })
-  @DbField({
-    default: null,
-    alias: 'bookingType',
-  })
-  payment_type?: string;
-
   @GqlField(() => Float, { name: 'createdAt' })
   @DbField({ required: true, alias: 'createdAt' })
   created_at!: number;

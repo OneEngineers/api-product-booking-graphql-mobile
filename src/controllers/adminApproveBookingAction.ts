@@ -11,14 +11,18 @@ import {
   AdminApproveBookingInput,
   AdminApprovalResponse,
 } from '../graphql/typeDefs/bookingTypeDefs';
+import { TransactionBookingService } from '../services';
+import { Types } from 'mongoose';
 
 const adminApproveBookingAction = async (
-  input: AdminApproveBookingInput
+  input: AdminApproveBookingInput,
+  user: { adminId?: string }
 ): Promise<AdminApprovalResponse> => {
   const { bookingId, approvalNotes } = input;
 
   try {
     const bookingService = new BookingService();
+    const transactionLogService = new TransactionBookingService();
 
     // Get booking details first
     const booking = await bookingService.getBookingById(bookingId);
@@ -42,6 +46,7 @@ const adminApproveBookingAction = async (
     // Approve the booking
     const approvedBooking = await bookingService.approveBookingByAdmin(
       bookingId,
+      user.adminId,
       approvalNotes
     );
 
@@ -51,6 +56,17 @@ const adminApproveBookingAction = async (
         status: RESPONSE_STATUS.FAILED,
         message: 'Failed to approve booking',
       };
+    }
+
+    // Update transaction log status to Approved
+    try {
+      await transactionLogService.updateTransactionLog(
+        { book_id: new Types.ObjectId(bookingId) },
+        { booking_status: BOOKING_STATUS.Approved }
+      );
+    } catch (logError) {
+      debug('Failed to update transaction log:', logError);
+      // Don't fail the approval if log update fails
     }
 
     // Send approval notification via RabbitMQ

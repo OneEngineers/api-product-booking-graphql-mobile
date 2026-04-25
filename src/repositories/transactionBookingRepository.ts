@@ -9,9 +9,7 @@ export interface TransactionBookingRepository {
   updateOne(query: AnyObject, update: AnyObject): Promise<TransactionBooking>;
 }
 
-export class TransactionBookingRepositoryImpl
-  implements TransactionBookingRepository
-{
+export class TransactionBookingRepositoryImpl implements TransactionBookingRepository {
   private model = getModelForClass(TransactionBooking);
 
   async countDocument(query: AnyObject): Promise<number> {
